@@ -220,3 +220,11 @@ application-metrics-jolokia-agent-run:
 
 application-metrics-jolokia-agent-clean:
 	kubectl delete ns demo-jolokia-agent
+
+# Development commands
+k8s_mock:
+	docker build "${k8s_path}/k8s_mock" -t localhost:32000/k8s-mock
+	docker push localhost:32000/k8s-mock
+	kubectl apply -f "${k8s_path}/k8s_mock.yaml"
+	kubectl -n k8s-mock delete pod --all
+	kubectl delete pod collection-sumologic-fluentd-logs-0 collection-sumologic-fluentd-logs-1 collection-sumologic-fluentd-logs-2
