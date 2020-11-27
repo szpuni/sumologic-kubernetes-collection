@@ -1112,6 +1112,10 @@ kube-prometheus-stack:
             configMapKeyRef:
               name: sumologic-configmap
               key: fluentdNamespace
+      
+      ## Prometheus image
+      image:
+        tag: v2.22.1
 
       ## Enable WAL compression to reduce Prometheus memory consumption
       walCompression: true
