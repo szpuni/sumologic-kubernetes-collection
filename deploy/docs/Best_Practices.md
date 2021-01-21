@@ -5,7 +5,7 @@
   - [Multiline Support](#multiline-support)
 - [Fluentd Autoscaling](#fluentd-autoscaling)
 - [Fluentd File-Based Buffer](#fluentd-file-based-buffer)
-  - [Excluding Logs From Specific Components](#excluding-logs-from-specific-components)
+- [Excluding Logs From Specific Components](#excluding-logs-from-specific-components)
 - [Reducing logs metadata](#reducing-logs-metadata)
 - [Add a local file to fluent-bit configuration](#add-a-local-file-to-fluent-bit-configuration)
 - [Filtering Prometheus Metrics by Namespace](#filtering-prometheus-metrics-by-namespace)
@@ -181,7 +181,7 @@ See the following links to official Fluentd buffer documentation:
 - https://docs.fluentd.org/configuration/buffer-section
 - https://docs.fluentd.org/buffer/file
 
-### Excluding Logs From Specific Components
+## Excluding Logs From Specific Components
 
 You can exclude specific logs from specific components from being sent to Sumo Logic
 by specifying the following parameters either in the `values.yaml` file or the `helm install` command.
@@ -201,7 +201,7 @@ excludePodRegex
   because the string is dynamic. Example:
 
   ```yaml
-  excludepodRegex: "(dashboard.*|sumologic.*)"
+  excludePodRegex: "(dashboard.*|sumologic.*)"
   ```
 
 - For things like namespace you won’t need to use a star at the end since there is no dynamic string. Example:
@@ -224,7 +224,7 @@ For example suppose you want to exclude the following log messages:
 
 In your values.yaml, you can simply add the following to your `values.yaml`:
 
-```
+```yaml
 fluentd:
   logs:
     containers:
