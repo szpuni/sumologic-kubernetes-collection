@@ -6,6 +6,7 @@
 - [Fluentd Autoscaling](#fluentd-autoscaling)
 - [Fluentd File-Based Buffer](#fluentd-file-based-buffer)
   - [Excluding Logs From Specific Components](#excluding-logs-from-specific-components)
+- [Reducing logs metadata](#reducing-logs-metadata)
 - [Add a local file to fluent-bit configuration](#add-a-local-file-to-fluent-bit-configuration)
 - [Filtering Prometheus Metrics by Namespace](#filtering-prometheus-metrics-by-namespace)
 - [Modify the Log Level for Falco](#modify-the-log-level-for-falco)
@@ -241,6 +242,48 @@ You can find more information on the `grep` filter plugin in the
 [fluentd documentation](https://docs.fluentd.org/filter/grep).
 Refer to our [documentation](v1_conf_examples.md) for other examples of how you can
 customize the fluentd pipeline.
+
+## Reducing logs metadata
+
+If you want to reduce the amount of metadata included with logs,
+`fluentd.logs.containers.extraOutputPluginConf` is the right place to do it.
+
+For example, you can use the Fluentd plugin [record_transformer](https://docs.fluentd.org/filter/record_transformer)
+with its [remove_keys](https://docs.fluentd.org/filter/record_transformer#remove_keys) parameter
+to exclude non-essential Kubernetes metadata by adding the following in your `values.yaml`:
+
+```yaml
+fluentd:
+  logs:
+    containers:
+      extraOutputPluginConf: |-
+        <filter containers.**>
+          @type record_transformer
+          remove_keys $.kubernetes.pod_id,$.kubernetes.namespace_id,$.kubernetes.labels,$.kubernetes.namespace_labels,$.kubernetes.master_url,$.kubernetes.annotations
+        </filter>
+```
+
+With this configuration, Fluentd will remove the following metadata from container logs:
+
+```
+pod_id
+container_id
+namespace_id
+master_url
+labels
+annotations
+```
+
+Logs will still include:
+
+```
+pod_name
+container_name
+namespace_name
+host
+```
+
+These fields still allow you to uniquely identify a pod and look up additional details with the Kubernetes API.
 
 ## Add a local file to fluent-bit configuration
 

@@ -443,6 +443,9 @@ fluentd:
       ## To use additional filter plugins
       extraFilterPluginConf: |-
 
+      ## To use additional output plugins
+      extraOutputPluginConf: |-
+
       ## To enable stiching multiline logs in fluentd when fluent-bit Multiline feature is On
       multiline:
         enabled: true

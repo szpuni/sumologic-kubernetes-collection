@@ -110,6 +110,7 @@ Parameter | Description | Default
 `fluentd.logs.containers.k8sMetadataFilter.clientKey` | Path to a client key file to authenticate to the API server. | `Nil`
 `fluentd.logs.containers.k8sMetadataFilter.bearerTokenFile` | Path to a file containing the bearer token to use for authentication. | `Nil`
 `fluentd.logs.containers.extraFilterPluginConf` | To use additional filter plugins. | `Nil`
+`fluentd.logs.containers.extraOutputPluginConf` | To use additional output plugins. | `Nil`
 `fluentd.logs.kubelet.enabled` | Collect kubelet logs. | `true`
 `fluentd.logs.kubelet.outputConf` | Output configuration for kubelet. | `@include logs.output.conf`
 `fluentd.logs.kubelet.overrideOutputConf` | Override output section for kubelet logs. Leave empty for the default output section. | `Nil`
