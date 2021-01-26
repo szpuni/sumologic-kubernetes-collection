@@ -99,6 +99,10 @@ spec:
       {{- if .Values.fluentd.logs.statefulset.priorityClassName }}
       priorityClassName: {{ .Values.fluentd.logs.statefulset.priorityClassName | quote }}
       {{- end }}
+      {{- if .Values.fluentd.initContainers }}
+      initContainers:
+      {{- toYaml .Values.fluentd.initContainers | nindent 8 }}
+      {{- end }}
       containers:
       - name: fluentd
         image: {{ .Values.fluentd.image.repository }}:{{ .Values.fluentd.image.tag }}
